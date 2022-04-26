@@ -7,10 +7,8 @@ class NetworkCoOccurrence:
     def get_network(self, L, C, min_subjects=0, min_occurences=1, net_type=None):
         C = C.copy()
         C, CC = self.get_cooccurrence(C, min_subjects, min_occurences)
-        # CC.tofile('sample.csv', sep = ',')
         np.savetxt('CC.csv', np.asarray(CC), delimiter = ',')
-        np.savetxt('CC.csv', np.asarray(CC), delimiter = ',')
-        print(len(CC),len(C))
+        np.savetxt('C.csv', np.asarray(C), delimiter = ',')
         N = C.shape[0]
 
         RR, RR_l, RR_u = self.get_risk_ratio(CC, N)

@@ -22,15 +22,40 @@ def main(path_occurrence_network, min_subjects, min_occurrences, race):
 
 
 if __name__ == '__main__':
+    
+
+    races_test = [{
+        "race_full":"Black or African American",
+        "race_abv":"black",
+    }]
+    races = [
+        {
+            "race_full":"Hispanic or Latino",
+            "race_abv":"hisp",
+        },
+        {
+            "race_full":"Asian",
+            "race_abv":"asian",
+        },
+        {
+            "race_full":"White",
+            "race_abv":"white",
+        },
+        {
+            "race_full":"Black or African American",
+            "race_abv":"black",
+        },
+    ]
 
     dataframe = DataframeCreator()
-    dataframe.create_dataframe_occurrence()
+    
 
-    race_abv = ['black']
-    # race_abv = ['all', 'hisp', 'asian', 'white', 'black']
-    for race in race_abv:
+    # for race in races:
+    for race in races_test:
 
-        path_occurrence_network = 'dataframes/network_oc-' + race + '.csv'
+        dataframe.create_dataframe_occurrence(race)
+
+        path_occurrence_network = 'dataframes/network_oc-' + race["race_abv"] + '.csv'
         min_subjects = 1
         min_occurrences = 1
 
@@ -42,4 +67,4 @@ if __name__ == '__main__':
         if len(sys.argv) > 3:
             min_occurrences = sys.argv[1]
 
-        main(path_occurrence_network, min_subjects, min_occurrences, race)
+        main(path_occurrence_network, min_subjects, min_occurrences, race["race_abv"])
