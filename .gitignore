@@ -1,7 +1,6 @@
 dataframes/*
 graphs/*
 
-*.csv
 
 !dataframes/.gitkeep
 !graphs/.gitkeep

@@ -7,8 +7,7 @@ class NetworkCoOccurrence:
     def get_network(self, L, C, min_subjects=0, min_occurences=1, net_type=None):
         C = C.copy()
         C, CC = self.get_cooccurrence(C, min_subjects, min_occurences)
-        np.savetxt('CC.csv', np.asarray(CC), delimiter = ',')
-        np.savetxt('C.csv', np.asarray(C), delimiter = ',')
+        np.savetxt('test/CC.csv', np.asarray(CC), delimiter = ',', fmt='%.2f')
         N = C.shape[0]
 
         RR, RR_l, RR_u = self.get_risk_ratio(CC, N)
@@ -130,6 +129,11 @@ class NetworkCoOccurrence:
         Phi_dist1[~is_sig] = 0
         # remove self-edges
         Phi_graph = Phi_dist1 - np.diag(np.diagonal(Phi_dist1))
+        
+        np.savetxt('test/t.csv', np.asarray(t), delimiter = ',', fmt='%f')
+        np.savetxt('test/Phi.csv', np.asarray(Phi), delimiter = ',', fmt='%f')
+        np.savetxt('test/Phi_dist1.csv', np.asarray(Phi_dist1), delimiter = ',', fmt='%f')
+        np.savetxt('test/Phi_graph.csv', np.asarray(Phi_graph), delimiter = ',', fmt='%f')
 
         # Phi_dist = Phi_dist2[is_sig]
         Phi_dist = Phi_dist2.ravel()
