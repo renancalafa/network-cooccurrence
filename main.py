@@ -18,7 +18,7 @@ def main(path_occurrence_network, min_subjects, min_occurrences, race):
     C, CC, RR_graph, RR_dist, G_rr, Phi_graph, Phi_dist, G_phi = component.get_network(race, labels,occurrences, min_subjects,
                                                                                        min_occurrences)
 
-    nx.write_graphml(G_phi, 'graphs/G_phi-' + race +'.graphml')
+    nx.write_graphml(G_phi, 'graphs/G_phi-' + race["race_abv"] +'.graphml')
     # nx.write_graphml(G_rr, 'G_RR-all.graphml')
 
 
@@ -51,10 +51,11 @@ if __name__ == '__main__':
     dataframe = DataframeCreator()
     
 
-    # for race in races:
-    for race in races_test:
+    for i, race in enumerate(races):
+    # for race in races_test:
 
         dataframe.create_dataframe_occurrence(race)
+        race["number"] = i
 
         path_occurrence_network = 'dataframes/network_oc-' + race["race_abv"] + '.csv'
         min_subjects = 1
@@ -68,4 +69,4 @@ if __name__ == '__main__':
         if len(sys.argv) > 3:
             min_occurrences = sys.argv[1]
 
-        main(path_occurrence_network, min_subjects, min_occurrences, race["race_abv"])
+        main(path_occurrence_network, min_subjects, min_occurrences, race)
