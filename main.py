@@ -4,6 +4,7 @@ import networkx as nx
 import pandas as pd
 from dataframes import DataframeCreator
 from network_cooccurrence import NetworkCoOccurrence
+from comparator import Comparator
 
 
 def main(path_occurrence_network, min_subjects, min_occurrences, race):
@@ -67,4 +68,7 @@ if __name__ == '__main__':
         if len(sys.argv) > 3:
             min_occurrences = sys.argv[1]
 
-        main(path_occurrence_network, min_subjects, min_occurrences, race["race_abv"])
+        comp = Comparator()
+        comp.get_data_dict()
+
+        # main(path_occurrence_network, min_subjects, min_occurrences, race["race_abv"])
