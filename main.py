@@ -15,7 +15,7 @@ def main(path_occurrence_network, min_subjects, min_occurrences, race):
 
     component = NetworkCoOccurrence()
 
-    C, CC, RR_graph, RR_dist, G_rr, Phi_graph, Phi_dist, G_phi = component.get_network(labels,occurrences, min_subjects,
+    C, CC, RR_graph, RR_dist, G_rr, Phi_graph, Phi_dist, G_phi = component.get_network(race, labels,occurrences, min_subjects,
                                                                                        min_occurrences)
 
     nx.write_graphml(G_phi, 'graphs/G_phi-' + race +'.graphml')
@@ -68,7 +68,4 @@ if __name__ == '__main__':
         if len(sys.argv) > 3:
             min_occurrences = sys.argv[1]
 
-        comp = Comparator()
-        comp.get_data_dict()
-
-        # main(path_occurrence_network, min_subjects, min_occurrences, race["race_abv"])
+        main(path_occurrence_network, min_subjects, min_occurrences, race["race_abv"])
