@@ -49,10 +49,10 @@ if __name__ == '__main__':
     ]
 
     dataframe = DataframeCreator()
-    
+        
 
     # for i, race in enumerate(races):
-    for i, race in enumerate(races_test):
+    for i, race in enumerate(races):
 
         dataframe.create_dataframe_occurrence(race)
         race["number"] = i

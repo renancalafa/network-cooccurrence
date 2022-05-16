@@ -3,7 +3,7 @@ import numpy as np
 import networkx as nx
 import os
 import openpyxl as op
-from openpyxl.styles import Border, Side
+from openpyxl.styles import Border, Side, Font
 
 class Comparator:
 
@@ -31,6 +31,9 @@ class Comparator:
         ws.cell(row=1,column=2).value = race["race_full"]
         ws.cell(row=1,column=2).alignment = op.styles.Alignment(horizontal='center', vertical='center')
         ws.merge_cells('B1:E1')
+        ws.merge_cells('G1:J1')
+        ws.merge_cells('L1:O1')
+        ws.merge_cells('Q1:T1')
         ws["B1"].fill = colour
         ws["B2"] = "Source"
         ws["C2"] = "Target"
@@ -44,18 +47,21 @@ class Comparator:
 
         ws["B1"].fill = colour
 
-        for row, data in enumerate(phi_dict, start=3):
+        phi_dict_sorted = sorted(phi_dict, key=lambda d: d['Phi'], reverse=True) 
+
+        for row, data in enumerate(phi_dict_sorted, start=3):
             ws[f"B{row}"] = data["Source"]
             ws[f"C{row}"] = data["Target"]
             ws[f"D{row}"] = data["Phi"]
             ws[f"E{row}"] = data["t"]
+            if (-1.96 < data["t"] < 1.96):
+                ws[f"E{row}"].font = Font(bold=True)
+                ws[f"D{row}"].font = Font(bold=True)
 
         for row in ws["B1:E233"]:
             for cell in row:
                 cell.fill = colour
                 cell.border = bd
-
-        
 
         wb.save("sheets/Main.xlsx") 
         
