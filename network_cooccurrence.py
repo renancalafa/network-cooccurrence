@@ -98,6 +98,9 @@ class NetworkCoOccurrence:
         PP = self.product_matrix(P)
         NP = self.product_matrix(N - P)
 
+        np.savetxt('test/_PP.csv', np.asarray(PP), delimiter = ',', fmt='%.2f')
+
+
         Phi_num = N * CC - PP
         Phi_dem = np.sqrt(PP * NP)
         Phi = Phi_num / (Phi_dem)
