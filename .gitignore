@@ -1,11 +1,11 @@
-dataframes/*
-graphs/*
 sheets/*
-test/*
+*/asian/*
+*/black/*
+*/hisp/*
+*/white/*
 
-
-
-!dataframes/.gitkeep
-!graphs/.gitkeep
 !sheets/.gitkeep
-!test/.gitkeep
+!*/asian/.gitkeep
+!*/black/.gitkeep
+!*/hisp/.gitkeep
+!*/white/.gitkeep

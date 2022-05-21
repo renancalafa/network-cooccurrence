@@ -1,6 +1,5 @@
 import numpy as np
 import networkx as nx
-from comparator import Comparator
 
 
 class NetworkCoOccurrence:
@@ -8,7 +7,7 @@ class NetworkCoOccurrence:
     def get_network(self, race, L, C, min_subjects=0, min_occurences=1, net_type=None):
         C = C.copy()
         C, CC = self.get_cooccurrence(C, min_subjects, min_occurences)
-        np.savetxt('test/' + race["race_abv"] + '_CC.csv', np.asarray(CC), delimiter = ',', fmt='%.2f')
+        np.savetxt('test/' + race["race_abv"] + '/' + race["path"] + '_CC.csv', np.asarray(CC), delimiter = ',', fmt='%.2f')
         N = C.shape[0]
 
         RR, RR_l, RR_u = self.get_risk_ratio(CC, N)
@@ -28,8 +27,8 @@ class NetworkCoOccurrence:
         G_rr = self.create_graph(RR_graph, P, L)
 
         Phi, t = self.get_phi(CC, N)
-        np.savetxt('test/' + race["race_abv"] + '_t.csv', np.asarray(t), delimiter = ',', fmt='%f')
-        np.savetxt('test/' + race["race_abv"] + '_Phi.csv', np.asarray(Phi), delimiter = ',', fmt='%f')
+        np.savetxt('test/' + race["race_abv"] + '/' + race["path"] + '_t.csv', np.asarray(t), delimiter = ',', fmt='%f')
+        np.savetxt('test/' + race["race_abv"] + '/' + race["path"] + '_Phi.csv', np.asarray(Phi), delimiter = ',', fmt='%f')
         Phi_graph, Phi_dist = self.get_graph_phi(Phi, t)
 
         if net_type != 'all':
@@ -42,8 +41,6 @@ class NetworkCoOccurrence:
                 Phi_dist = Phi_dist[Phi_dist < 0]
 
         G_phi = self.create_graph(Phi_graph, P, L)
-
-        Comparator().create_main_sheet(Phi, t, race)
 
         return C, CC, RR_graph, RR_dist, G_rr, Phi_graph, Phi_dist, G_phi
 
@@ -97,9 +94,6 @@ class NetworkCoOccurrence:
 
         PP = self.product_matrix(P)
         NP = self.product_matrix(N - P)
-
-        np.savetxt('test/_PP.csv', np.asarray(PP), delimiter = ',', fmt='%.2f')
-
 
         Phi_num = N * CC - PP
         Phi_dem = np.sqrt(PP * NP)
