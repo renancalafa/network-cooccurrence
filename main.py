@@ -35,6 +35,10 @@ if __name__ == '__main__':
             "race_abv":"hisp",
         },
         {
+            "race_full":"Black or African American",
+            "race_abv":"black",
+        },
+        {
             "race_full":"Asian",
             "race_abv":"asian",
         },
@@ -42,10 +46,7 @@ if __name__ == '__main__':
             "race_full":"White",
             "race_abv":"white",
         },
-        {
-            "race_full":"Black or African American",
-            "race_abv":"black",
-        },
+
     ]
 
     dataframe = DataframeCreator()
@@ -54,8 +55,7 @@ if __name__ == '__main__':
     # for i, race in enumerate(races):
     for i, race in enumerate(races):
 
-        dataframe.create_dataframe_occurrence(race)
-        race["number"] = i
+        # dataframe.create_dataframe_occurrence(race)
         composite_sufix = ['_all','_c','_nc']
 
         for sufix in composite_sufix:
@@ -72,6 +72,6 @@ if __name__ == '__main__':
             if len(sys.argv) > 3:
                 min_occurrences = sys.argv[1]
 
-            main(path_occurrence_network, min_subjects, min_occurrences, race)
+            # main(path_occurrence_network, min_subjects, min_occurrences, race)
         
-        Comparator().create_main_sheet(race)
+    Comparator().create_sheets(races)

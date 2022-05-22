@@ -1,5 +1,3 @@
-from msilib.schema import Class
-from os import remove
 import pandas as pd
 
 class DataframeCreator:

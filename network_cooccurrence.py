@@ -27,8 +27,10 @@ class NetworkCoOccurrence:
         G_rr = self.create_graph(RR_graph, P, L)
 
         Phi, t = self.get_phi(CC, N)
+
         np.savetxt('test/' + race["race_abv"] + '/' + race["path"] + '_t.csv', np.asarray(t), delimiter = ',', fmt='%f')
         np.savetxt('test/' + race["race_abv"] + '/' + race["path"] + '_Phi.csv', np.asarray(Phi), delimiter = ',', fmt='%f')
+        
         Phi_graph, Phi_dist = self.get_graph_phi(Phi, t)
 
         if net_type != 'all':
