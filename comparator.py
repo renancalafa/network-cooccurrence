@@ -43,7 +43,21 @@ class Comparator:
 
         ws = wb.create_sheet("Top 10 Cooccurrences")
 
-        self.set_top10_worksheet(ws, races[1])        
+        self.set_top10_worksheet(ws)
+        
+        cmbdts_sorted_lists = []
+        
+        for race in races:
+            cmbdts_indexed_lists = []
+            for i, obj in race["race_data_all"]:
+                obj["cc_index"] = i
+                cmbdts_indexed_lists.append(obj)
+            cmbdts_sorted_lists.append(sorted(cmbdts_indexed_lists, key=lambda d: d['Phi'], reverse=True))
+
+        cmbdts_top = self.set_top10_ccs(cmbdts_sorted_lists)
+
+    def set_top10_ccs(self, lists):
+            0
 
     def set_races_data (self, races):
         races_data_list = races
@@ -64,17 +78,19 @@ class Comparator:
             all_data.append(self.set_race_dict(phi_df, t_df, cc_df, sufix))
         return all_data
 
-    def set_top10_worksheet(self, ws, race):
+    def set_top10_worksheet(self, ws):
 
         title_cells_range = ['C1:H1', 'J1:O1', 'Q1:V1', 'X1:AC1']
         for range in title_cells_range:
             ws.merge_cells(range)
-        ws.cell(row=1,column=3).value = race["race_full"]
         ws.cell(row=1,column=3).alignment = op.styles.Alignment(horizontal='center', vertical='center')
 
         composite_cells_range = ['C2:E2', 'F2:H2', 'J2:L2', 'M2:O2', 'Q2:S2', 'T2:V2', 'X2:Z2', 'AA2:AC2']
         for range in composite_cells_range:
             ws.merge_cells(range)
+            for row in ws[range]:
+                for cell in row:
+                    cell.font = Font(bold=True)
         ws["C2"].value = 0
         ws["C2"].alignment = op.styles.Alignment(horizontal='center', vertical='center')
         ws["F2"].value = 1
@@ -84,6 +100,7 @@ class Comparator:
         cells_type_align = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
         for cell in cells_type_align:
             ws[cell + '3'].alignment = op.styles.Alignment(horizontal='center', vertical='center')
+            ws[cell + '3'].font = Font(bold=True)
         ws["A3"].value = "Source"
         ws["B3"].value = "Target"
         ws["C3"].value = "N"
@@ -99,6 +116,8 @@ class Comparator:
             ws.column_dimensions[column].width = 1
 
         ws.move_range("C1:H16", cols = 7)
+
+
 
 
         # ws.cell("F2").value = "1"
@@ -171,7 +190,7 @@ class Comparator:
                         "Target": cmbdts[key],
                         "Phi": data[key],
                         "t": t_dict[i][j],
-                        "cc": cc_dict[i][j], 
+                        "N": cc_dict[i][j], 
                     })
         race_dict = {
             "sufix": sufix,
