@@ -31,10 +31,6 @@ if __name__ == '__main__':
     }]
     races = [
         {
-            "race_full":"Hispanic or Latino",
-            "race_abv":"hisp",
-        },
-        {
             "race_full":"Black or African American",
             "race_abv":"black",
         },
@@ -46,7 +42,10 @@ if __name__ == '__main__':
             "race_full":"White",
             "race_abv":"white",
         },
-
+        {
+            "race_full":"Hispanic or Latino",
+            "race_abv":"hisp",
+        },
     ]
 
     dataframe = DataframeCreator()
